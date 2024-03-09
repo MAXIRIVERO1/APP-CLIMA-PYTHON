@@ -1,16 +1,27 @@
-"""Welcome to Reflex!."""
+"""Welcome to Reflex! This file outlines the steps to create a basic app."""
 
-from entorno import styles
-
-# Import all the pages.
-from entorno.pages import *
+from rxconfig import config
 
 import reflex as rx
+from entorno.components.clima import render_weather_component as clima
+
+
+docs_url = "https://reflex.dev/docs/getting-started/introduction/"
+filename = f"{config.app_name}/{config.app_name}.py"
 
 
 class State(rx.State):
-    """Define empty state to allow access to rx.State.router."""
+    """The app state."""
 
 
-# Create the app.
-app = rx.App(style=styles.base_style)
+def index() -> rx.Component:
+    return rx.center(
+        rx.vstack(
+            clima()
+        ),
+        height="100vh",
+    )
+
+
+app = rx.App()
+app.add_page(index)
